@@ -1,4 +1,6 @@
 
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 // Задача для этого компонента:
 // Реализовать создание нового героя с введенными данными. Он должен попадать
@@ -11,36 +13,44 @@
 // данных из фильтров
 
 const HeroesAddForm = () => {
+    const { heroes } = useSelector(state => state);
+    const dispatch = useDispatch();
+
+    const createHero = () => {
+        console.log(heroes)
+    }
+
+
     return (
         <form className="border p-4 shadow-lg rounded">
             <div className="mb-3">
                 <label htmlFor="name" className="form-label fs-4">Имя нового героя</label>
-                <input 
+                <input
                     required
-                    type="text" 
-                    name="name" 
-                    className="form-control" 
-                    id="name" 
-                    placeholder="Как меня зовут?"/>
+                    type="text"
+                    name="name"
+                    className="form-control"
+                    id="name"
+                    placeholder="Как меня зовут?" />
             </div>
 
             <div className="mb-3">
                 <label htmlFor="text" className="form-label fs-4">Описание</label>
                 <textarea
                     required
-                    name="text" 
-                    className="form-control" 
-                    id="text" 
+                    name="text"
+                    className="form-control"
+                    id="text"
                     placeholder="Что я умею?"
-                    style={{"height": '130px'}}/>
+                    style={{ "height": '130px' }} />
             </div>
 
             <div className="mb-3">
                 <label htmlFor="element" className="form-label">Выбрать элемент героя</label>
-                <select 
+                <select
                     required
-                    className="form-select" 
-                    id="element" 
+                    className="form-select"
+                    id="element"
                     name="element">
                     <option >Я владею элементом...</option>
                     <option value="fire">Огонь</option>
@@ -50,7 +60,7 @@ const HeroesAddForm = () => {
                 </select>
             </div>
 
-            <button type="submit" className="btn btn-primary">Создать</button>
+            <button onClick={createHero} type="submit" className="btn btn-primary">Создать</button>
         </form>
     )
 }
