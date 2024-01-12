@@ -77,8 +77,9 @@ const HeroesAddForm = () => {
                     required
                     className="form-select"
                     id="element"
-                    name="element">
-                    <option value="none">Я владею элементом...</option>
+                    name="element"
+                    value={hero.element}>
+                    <option >Я владею элементом...</option>
                     <option value="fire">Огонь</option>
                     <option value="water">Вода</option>
                     <option value="wind">Ветер</option>
