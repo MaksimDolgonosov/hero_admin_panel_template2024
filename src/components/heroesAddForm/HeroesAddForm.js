@@ -1,9 +1,11 @@
 
 import { useDispatch } from "react-redux";
-//import { useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
-import { heroAdded } from "../../actions";
+import { heroAdded, filtersAdded } from "../../actions";
+import { useHttp } from "../../hooks/http.hook";
+import { useEffect } from "react";
 // Задача для этого компонента:
 // Реализовать создание нового героя с введенными данными. Он должен попадать
 // в общее состояние и отображаться в списке + фильтроваться
@@ -15,28 +17,52 @@ import { heroAdded } from "../../actions";
 // данных из фильтров
 
 const HeroesAddForm = () => {
-    //const { heroes } = useSelector(state => state);
+    const { filters } = useSelector(state => state);
+    const { request } = useHttp();
+    useEffect(() => {
+        request("http://localhost:3001/filters")
+            .then(filters => dispatch(filtersAdded(filters)))
+            .catch(error => console.log(error))
+        // eslint-disable-next-line
+    }, [])
 
     const dispatch = useDispatch();
     const [hero, setHero] = useState({
         id: "",
         name: "",
         description: "",
-        element: "none",
+        element: "all",
     })
 
     const createHero = (e) => {
         e.preventDefault();
         const heroID = uuidv4();
         const newHerro = { ...hero, id: heroID };
-        //setHero(newHerro)
-        console.log(newHerro);
         dispatch(heroAdded(newHerro));
+        request("http://localhost:3001/heroes", "POST", JSON.stringify(newHerro));
         setHero({
             id: "",
             name: "",
             description: "",
-            element: "none",
+            element: "all",
+        })
+    }
+
+    const renderFilters = (filters) => {
+        return filters.map(filter => {
+            switch (filter) {
+                case "fire":
+                    return <option value={filter} key={filter}>Огонь</option>
+                case "water":
+                    return <option value={filter} key={filter}>Вода</option>
+                case "wind":
+                    return <option value={filter} key={filter}>Ветер</option>
+                case "earth":
+                    return <option value={filter} key={filter}>Земля</option>
+                default:
+                    return <option value={filter} key={filter}>Я владею элементом...</option>
+            }
+
         })
     }
 
@@ -79,11 +105,12 @@ const HeroesAddForm = () => {
                     id="element"
                     name="element"
                     value={hero.element}>
-                    <option >Я владею элементом...</option>
+                        {renderFilters(filters)}
+                    {/* <option >Я владею элементом...</option>
                     <option value="fire">Огонь</option>
                     <option value="water">Вода</option>
                     <option value="wind">Ветер</option>
-                    <option value="earth">Земля</option>
+                    <option value="earth">Земля</option> */}
                 </select>
             </div>
 
