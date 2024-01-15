@@ -37,3 +37,10 @@ export const filtersAdded = (filters) => {
         payload: filters
     }
 }
+
+export const activeFiltersAdded = (filter) => {
+    return {
+        type: 'ACTIVE_FILTER_ADDED',
+        payload: filter
+    }
+}
