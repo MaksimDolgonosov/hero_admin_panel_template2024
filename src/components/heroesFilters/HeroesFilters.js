@@ -9,7 +9,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { activeFiltersAdded } from "../../actions";
 
 const HeroesFilters = () => {
-    const { filters } = useSelector(state => state);
+    const { filters, activeFilter } = useSelector(state => state.filters);
     const dispatch = useDispatch();
 
     const onActive = (filter) => {
@@ -20,15 +20,19 @@ const HeroesFilters = () => {
         return filters.map(filter => {
             switch (filter) {
                 case "fire":
-                    return <button data-element={filter} key={filter} onClick={() => onActive(filter)} className="btn btn-danger">Огонь</button>
+                    return <button
+                        data-element={filter}
+                        key={filter}
+                        onClick={() => onActive(filter)}
+                        className={"btn btn-danger" + (activeFilter === filter ? " active" : "")}>Огонь</button>
                 case "water":
-                    return <button data-element={filter} key={filter} onClick={() => onActive(filter)} className="btn btn-primary">Вода</button>
+                    return <button data-element={filter} key={filter} onClick={() => onActive(filter)} className={"btn btn-primary"+ (activeFilter === filter ? " active" : "")}>Вода</button>
                 case "wind":
-                    return <button data-element={filter} key={filter} onClick={() => onActive(filter)} className="btn btn-success">Ветер</button>
+                    return <button data-element={filter} key={filter} onClick={() => onActive(filter)} className={"btn btn-success"+ (activeFilter === filter ? " active" : "")}>Ветер</button>
                 case "earth":
-                    return <button data-element={filter} key={filter} onClick={() => onActive(filter)} className="btn btn-secondary">Земля</button>
+                    return <button data-element={filter} key={filter} onClick={() => onActive(filter)} className={"btn btn-secondary"+ (activeFilter === filter ? " active" : "")}>Земля</button>
                 default:
-                    return <button data-element={filter} key={filter} onClick={() => onActive(filter)} className="btn btn-outline-dark active">Все</button>
+                    return <button data-element={filter} key={filter} onClick={() => onActive(filter)} className={"btn btn-outline-dark"+ (activeFilter === filter ? " active" : "")}>Все</button>
             }
 
         })

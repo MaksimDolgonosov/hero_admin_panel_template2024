@@ -17,7 +17,7 @@ import { useEffect } from "react";
 // данных из фильтров
 
 const HeroesAddForm = () => {
-    const { filters } = useSelector(state => state);
+    const { filters } = useSelector(state => state.filters);
     const { request } = useHttp();
     useEffect(() => {
         request("http://localhost:3001/filters")
