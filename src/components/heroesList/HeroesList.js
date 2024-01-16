@@ -46,8 +46,8 @@ const HeroesList = () => {
             return <HeroesListItem key={id} {...props} onDelete={() => onDelete(id)} />
         })
     }
-
-    const elements = renderHeroesList(heroes);
+    const filteredHeroes = activeFilter === "all" ? heroes : heroes.filter(hero => hero.element === activeFilter);
+    const elements = renderHeroesList(filteredHeroes);
     return (
         <ul>
             {elements}
