@@ -1,4 +1,5 @@
 import { useHttp } from '../../hooks/http.hook';
+import { createSelector } from 'reselect';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -12,10 +13,24 @@ import Spinner from '../spinner/Spinner';
 // Удаление идет и с json файла при помощи метода DELETE
 
 const HeroesList = () => {
-    const { heroes, heroesLoadingStatus } = useSelector(state => state.heroes);
-    const { activeFilter } = useSelector(state => state.filters);
-    
-    console.log(heroes, activeFilter);
+
+    const filteredHeroesSelector = createSelector(
+        (state) => state.filters.activeFilter,
+        (state) => state.heroes.heroes,
+        (filter, heroes) => {
+            if (filter === "all") {
+                return heroes
+            } else {
+                return heroes.filter(hero => hero.element === filter)
+            }
+        }
+    )
+
+    const filteredHeroes = useSelector(filteredHeroesSelector)
+    const  heroesLoadingStatus  = useSelector(state => state.heroes.heroesLoadingStatus);
+    //const { activeFilter } = useSelector(state => state.filters);
+
+    //console.log(activeFilter);
     const dispatch = useDispatch();
     const { request } = useHttp();
 
@@ -49,7 +64,7 @@ const HeroesList = () => {
             return <HeroesListItem key={id} {...props} onDelete={() => onDelete(id)} />
         })
     }
-    const filteredHeroes = activeFilter === "all" ? heroes : heroes.filter(hero => hero.element === activeFilter);
+    // const filteredHeroes = activeFilter === "all" ? heroes : heroes.filter(hero => hero.element === activeFilter);
     const elements = renderHeroesList(filteredHeroes);
     return (
         <ul>
