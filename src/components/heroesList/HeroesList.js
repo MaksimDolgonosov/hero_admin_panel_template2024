@@ -38,7 +38,7 @@ const HeroesList = () => {
         dispatch(heroesFetching());
         request("http://localhost:3001/heroes")
             .then(data => dispatch(heroesFetched(data)))
-            .catch(() => dispatch(heroesFetchingError()))
+            .catch(() => dispatch('HEROES_FETCHING_ERROR'))
 
         // eslint-disable-next-line
     }, []);
