@@ -3,7 +3,9 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
-import { heroAdded, filtersAdded } from "../../actions";
+// import {  filtersAdded } from "../../actions";
+import {  filtersAdded } from "../../reducers/filtersSlice";
+import { heroAdded } from "../../reducers/heroesSlice";
 import { useHttp } from "../../hooks/http.hook";
 import { useEffect } from "react";
 // Задача для этого компонента:
