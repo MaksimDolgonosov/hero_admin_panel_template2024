@@ -7,7 +7,7 @@ import { heroDeleted } from '../../reducers/heroesSlice';
 import HeroesListItem from "../heroesListItem/HeroesListItem";
 import Spinner from '../spinner/Spinner';
 
-import { fetchHeroes } from '../../actions';
+import { fetchHeroes } from '../../reducers/heroesSlice';
 
 // Задача для этого компонента:
 // При клике на "крестик" идет удаление персонажа из общего состояния
@@ -37,7 +37,7 @@ const HeroesList = () => {
     const { request } = useHttp();
 
     useEffect(() => {
-       dispatch(fetchHeroes(request)) 
+       dispatch(fetchHeroes()) 
         // dispatch(heroesFetching());
         // request("http://localhost:3001/heroes")
         //     .then(data => dispatch(heroesFetched(data)))
