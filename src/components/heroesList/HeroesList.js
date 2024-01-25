@@ -17,6 +17,7 @@ import { fetchHeroes } from '../../reducers/heroesSlice';
 const HeroesList = () => {
 
     const filteredHeroesSelector = createSelector(
+       // (state) => console.log(state),
         (state) => state.filters.activeFilter,
         // (state) => state.heroes.heroes,
         selectAllHeroes,

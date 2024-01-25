@@ -1,13 +1,14 @@
 
 import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
+//import { useSelector } from "react-redux";
 import { useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
 // import {  filtersAdded } from "../../actions";
-import {  filtersAdded } from "../../reducers/filtersSlice";
+import { fetchFilters, selectAll as selectAllFilters } from "../../reducers/filtersSlice";
 import { heroAdded } from "../../reducers/heroesSlice";
 import { useHttp } from "../../hooks/http.hook";
 import { useEffect } from "react";
+import store from '../../store';
 // Задача для этого компонента:
 // Реализовать создание нового героя с введенными данными. Он должен попадать
 // в общее состояние и отображаться в списке + фильтроваться
@@ -19,12 +20,15 @@ import { useEffect } from "react";
 // данных из фильтров
 
 const HeroesAddForm = () => {
-    const { filters } = useSelector(state => state.filters);
+    //const { filters } = useSelector(state => state.filters);
+    //const filters = useSelector(selectAllFilters) ;
+    const filters = selectAllFilters(store.getState())
     const { request } = useHttp();
     useEffect(() => {
-        request("http://localhost:3001/filters")
-            .then(filters => dispatch(filtersAdded(filters)))
-            .catch(error => console.log(error))
+        // request("http://localhost:3001/filters")
+        //     .then(filters => dispatch(fetchFilters()))
+        //     .catch(error => console.log(error))
+        dispatch(fetchFilters());
         // eslint-disable-next-line
     }, [])
 
@@ -107,7 +111,7 @@ const HeroesAddForm = () => {
                     id="element"
                     name="element"
                     value={hero.element}>
-                        {renderFilters(filters)}
+                    {renderFilters(filters)}
                     {/* <option >Я владею элементом...</option>
                     <option value="fire">Огонь</option>
                     <option value="water">Вода</option>

@@ -10,7 +10,7 @@ const heroesAdapter = createEntityAdapter();
 const initialState = heroesAdapter.getInitialState({
     heroesLoadingStatus: 'idle'
 })
-console.log(initialState)
+
 
 // export const fetchHeroes = (request) => (dispatch) => {
 //     dispatch(heroesFetching());

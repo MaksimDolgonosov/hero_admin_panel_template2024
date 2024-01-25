@@ -7,10 +7,12 @@
 // Представьте, что вы попросили бэкенд-разработчика об этом
 import { useSelector, useDispatch } from "react-redux";
 //import { activeFiltersAdded } from "../../actions";
-import { activeFiltersAdded } from "../../reducers/filtersSlice";
-
+import { activeFiltersAdded, selectAll } from "../../reducers/filtersSlice";
+import store from "../../store";
 const HeroesFilters = () => {
-    const { filters, activeFilter } = useSelector(state => state.filters);
+    const {  activeFilter } = useSelector(state => state.filters);
+    //const filters = useSelector(selectAll);
+    const filters = selectAll(store.getState());
     const dispatch = useDispatch();
 
     const onActive = (filter) => {
@@ -18,7 +20,7 @@ const HeroesFilters = () => {
     }
 
     const renderFilters = (filters) => {
-        console.log(filters)
+
         return filters.map(filter => {
             switch (filter.name) {
                 case "fire":
