@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { fetchFilters } from "../actions";
+//import { fetchFilters } from "../actions";
 import { useHttp } from "../hooks/http.hook";
 
 const initialState = {
@@ -33,10 +33,14 @@ const filtersSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            .addCase(fetchFilters.pending, )
+            .addCase(fetchFilters.fulfilled, (state, action) => {
+                state.filters = action.payload;
+            })
     }
 })
 
 const { actions, reducer } = filtersSlice;
 export default reducer;
+
+
 export const { filtersAdded, activeFiltersAdded } = actions;

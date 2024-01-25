@@ -52,17 +52,17 @@ const HeroesAddForm = () => {
 
     const renderFilters = (filters) => {
         return filters.map(filter => {
-            switch (filter) {
+            switch (filter.name) {
                 case "fire":
-                    return <option value={filter} key={filter}>Огонь</option>
+                    return <option value={filter.name} key={filter.id}>Огонь</option>
                 case "water":
-                    return <option value={filter} key={filter}>Вода</option>
+                    return <option value={filter.name} key={filter.id}>Вода</option>
                 case "wind":
-                    return <option value={filter} key={filter}>Ветер</option>
+                    return <option value={filter.name} key={filter.id}>Ветер</option>
                 case "earth":
-                    return <option value={filter} key={filter}>Земля</option>
+                    return <option value={filter.name} key={filter.id}>Земля</option>
                 default:
-                    return <option value={filter} key={filter}>Я владею элементом...</option>
+                    return <option value={filter.name} key={filter.id}>Я владею элементом...</option>
             }
 
         })

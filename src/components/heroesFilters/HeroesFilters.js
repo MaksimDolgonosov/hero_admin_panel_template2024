@@ -18,22 +18,23 @@ const HeroesFilters = () => {
     }
 
     const renderFilters = (filters) => {
+        console.log(filters)
         return filters.map(filter => {
-            switch (filter) {
+            switch (filter.name) {
                 case "fire":
                     return <button
-                        data-element={filter}
-                        key={filter}
-                        onClick={() => onActive(filter)}
-                        className={"btn btn-danger" + (activeFilter === filter ? " active" : "")}>Огонь</button>
+                        data-element={filter.name}
+                        key={filter.id}
+                        onClick={() => onActive(filter.name)}
+                        className={"btn btn-danger" + (activeFilter === filter.name ? " active" : "")}>Огонь</button>
                 case "water":
-                    return <button data-element={filter} key={filter} onClick={() => onActive(filter)} className={"btn btn-primary"+ (activeFilter === filter ? " active" : "")}>Вода</button>
+                    return <button data-element={filter.name} key={filter.id} onClick={() => onActive(filter.name)} className={"btn btn-primary"+ (activeFilter === filter.name ? " active" : "")}>Вода</button>
                 case "wind":
-                    return <button data-element={filter} key={filter} onClick={() => onActive(filter)} className={"btn btn-success"+ (activeFilter === filter ? " active" : "")}>Ветер</button>
+                    return <button data-element={filter.name} key={filter.id} onClick={() => onActive(filter.name)} className={"btn btn-success"+ (activeFilter === filter.name ? " active" : "")}>Ветер</button>
                 case "earth":
-                    return <button data-element={filter} key={filter} onClick={() => onActive(filter)} className={"btn btn-secondary"+ (activeFilter === filter ? " active" : "")}>Земля</button>
+                    return <button data-element={filter.name} key={filter.id} onClick={() => onActive(filter.name)} className={"btn btn-secondary"+ (activeFilter === filter.name ? " active" : "")}>Земля</button>
                 default:
-                    return <button data-element={filter} key={filter} onClick={() => onActive(filter)} className={"btn btn-outline-dark"+ (activeFilter === filter ? " active" : "")}>Все</button>
+                    return <button data-element={filter.name} key={filter.id} onClick={() => onActive(filter.name)} className={"btn btn-outline-dark"+ (activeFilter === filter.name ? " active" : "")}>Все</button>
             }
 
         })
